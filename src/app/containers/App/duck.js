@@ -22,6 +22,7 @@ const isFetching = (state = false, action) => {
 			return true;
 		case PEOPLE_RECEIVE_SUCCESS:
 		case PEOPLE_RECEIVE_FAILURE:
+			return false;
 		default:
 			return state;
 	}
@@ -45,7 +46,7 @@ const totalCount = (state = 0, action) => {
 	}
 };
 
-const nextPage = (state = 0, action) => {
+const nextPage = (state = 1, action) => {
 	switch (action.type) {
 		case SET_NEXT_PEOPLE_LINK:
 			return action.payload;

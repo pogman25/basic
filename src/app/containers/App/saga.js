@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest, select } from 'redux-saga/effects';
 import fetchData from '../../../utils/fetch';
 import * as duck from './duck';
-import { getNextPage } from './selectors';
+import { getNextPage, getTotalCountFromState } from './selectors';
 
 // saga запросов к серверу
 export function* callAPI(url, params) {
@@ -43,21 +43,27 @@ export function* callAPI(url, params) {
 }
 
 function* fetchPeople(action) {
-	try {
-		const count = yield select(getNextPage);
-		const resp = yield call(callAPI, 'people/', { params: { page: count + 1 } });
-		if (resp.status === 200) {
-			const { data } = resp;
-			yield all([
-				put(duck.setTotalCount(data.count)),
-				put(duck.setNextLink(count + 1)),
-				put(duck.getPeopleSuccess(data.results)),
-			]);
-		} else {
+	const count = yield select(getNextPage);
+	const totalCount = yield select(getTotalCountFromState);
+	if (!!count) {
+		try {
+			const resp = yield call(callAPI, 'people/', { params: { page: count } });
+			if (resp.status === 200) {
+				const { data } = resp;
+				const nextPage = !!data.next ? data.next.replace(/\D/g, '') : null;
+				yield all([
+					yield put(duck.getPeopleSuccess(data.results)),
+					put(duck.setNextLink(+nextPage)),
+				]);
+				if (totalCount !== data.count) {
+					put(duck.setTotalCount(data.count));
+				}
+			} else {
+				yield put(duck.showError('Что-то пошло не так'));
+			}
+		} catch (error) {
 			yield put(duck.showError('Что-то пошло не так'));
 		}
-	} catch (error) {
-		yield put(duck.showError('Что-то пошло не так'));
 	}
 }
 

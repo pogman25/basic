@@ -20,3 +20,13 @@ export const getNextPage = createSelector(
 	appReducer,
 	i => i.nextPage
 );
+
+export const getTotalCountFromState = createSelector(
+	appReducer,
+	i => i.totalCount
+);
+
+export const getIsFetchingFromState = createSelector(
+	appReducer,
+	i => i.isFetching
+);
