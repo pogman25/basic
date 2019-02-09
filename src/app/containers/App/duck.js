@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { createAction } from 'redux-actions';
 
 // Actions
@@ -16,75 +15,43 @@ export const SET_NEXT_PEOPLE_LINK = 'app/SET_NEXT_PEOPLE_LINK';
 
 // Reducers
 
-const isFetching = (state = false, action) => {
+const initialState = {
+	isFetching: false,
+	people: [],
+	totalCount: 0,
+	nextPage: 1,
+	errors: '',
+	success: '',
+};
+
+const reducers = (state = initialState, action) => {
 	switch (action.type) {
 		case PEOPLE_REQUEST:
-			return true;
+			return { ...state, isFetching: true };
 		case PEOPLE_RECEIVE_SUCCESS:
+			return {
+				...state,
+				people: [...state.people, ...action.payload],
+				isFetching: false,
+			};
 		case PEOPLE_RECEIVE_FAILURE:
-			return false;
-		default:
-			return state;
-	}
-};
-
-const people = (state = [], action) => {
-	switch (action.type) {
-		case PEOPLE_RECEIVE_SUCCESS:
-			return [...state, ...action.payload];
-		default:
-			return state;
-	}
-};
-
-const totalCount = (state = 0, action) => {
-	switch (action.type) {
+			return { ...state, isFetching: false };
 		case GET_TOTAL_COUNT:
-			return action.payload;
-		default:
-			return state;
-	}
-};
-
-const nextPage = (state = 1, action) => {
-	switch (action.type) {
+			return { ...state, totalCount: action.payload };
 		case SET_NEXT_PEOPLE_LINK:
-			return action.payload;
-		default:
-			return state;
-	}
-};
-
-const errors = (state = '', action) => {
-	switch (action.type) {
+			return { ...state, nextPage: action.payload };
 		case SHOW_ERROR:
-			return action.payload;
+			return { ...state, error: action.payload };
 		case HIDE_ERROR:
-			return '';
-		default:
-			return state;
-	}
-};
-
-const success = (state = '', action) => {
-	switch (action.type) {
+			return { ...state, error: '' };
 		case SHOW_SUCCESS:
-			return action.payload;
+			return { ...state, success: action.payload };
 		case HIDE_SUCCESS:
-			return '';
+			return { ...state, success: '' };
 		default:
 			return state;
 	}
 };
-
-const reducers = combineReducers({
-	isFetching,
-	people,
-	totalCount,
-	nextPage,
-	errors,
-	success,
-});
 
 export default reducers;
 
