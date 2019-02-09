@@ -7,61 +7,59 @@ import Preload from '../../components/Preload';
 import { getPeople } from './duck';
 import { showError } from '../Notification/duck';
 import {
-	getPeopleFromState,
-	getNextPage,
-	getTotalCountFromState,
-	getIsFetchingFromState,
+  getPeopleFromState,
+  getNextPage,
+  getTotalCountFromState,
+  getIsFetchingFromState,
 } from './selectors';
 import './App.css';
 
 const mapStateToProps = state => ({
-	isFetching: getIsFetchingFromState(state),
-	peopleList: getPeopleFromState(state),
-	nextPage: getNextPage(state),
-	totalCount: getTotalCountFromState(state),
+  isFetching: getIsFetchingFromState(state),
+  peopleList: getPeopleFromState(state),
+  nextPage: getNextPage(state),
+  totalCount: getTotalCountFromState(state),
 });
 
 const mapDispatchToProps = {
-	getPeople,
-	showError,
+  getPeople,
+  showError,
 };
 
 class App extends Component {
-	componentDidMount() {
-		this.getMorePeople();
-	}
+  componentDidMount() {
+    this.getMorePeople();
+  }
 
-	getMorePeople = () => {
-		this.props.getPeople();
-	};
+  getMorePeople = () => {
+    this.props.getPeople();
+  };
 
-	showError = () => {
-		this.props.showError('teset error');
-	};
+  showError = () => {
+    this.props.showError('teset error');
+  };
 
-	render() {
-		const { peopleList, nextPage, isFetching } = this.props;
-		return (
-			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<p>Пример работы с редюсерами</p>
-					<button onClick={this.showError}>show error</button>
-				</header>
-				<PeopleList peopleList={peopleList} />
-				<div>
-					{!!nextPage && !isFetching && (
-						<button onClick={this.getMorePeople}>больше</button>
-					)}
-					{isFetching && <Preload />}
-				</div>
-				<Notification />
-			</div>
-		);
-	}
+  render() {
+    const { peopleList, nextPage, isFetching } = this.props;
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>Пример работы с редюсерами</p>
+          <button onClick={this.showError}>show error</button>
+        </header>
+        <PeopleList peopleList={peopleList} />
+        <div>
+          {!!nextPage && !isFetching && <button onClick={this.getMorePeople}>больше</button>}
+          {isFetching && <Preload />}
+        </div>
+        <Notification />
+      </div>
+    );
+  }
 }
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(App);

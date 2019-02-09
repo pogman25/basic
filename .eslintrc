@@ -1,0 +1,27 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "plugins": ["react", "prettier", "jsx-a11y"],
+  "extends": ["react-app", "airbnb"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-unexpected-multiline": "warn",
+    "no-debugger": "error",
+    "eqeqeq": "error",
+    "no-console": ["error", { "allow": ["tron"] }],
+    "prefer-template": "error",
+    "import/no-unresolved": "error",
+    "import/named": "error",
+    "import/namespace": "error",
+    "import/no-duplicates": "error",
+    "react/jsx-boolean-value": "warn",
+    "react/jsx-curly-brace-presence": ["warn", "never"]
+  }
+}

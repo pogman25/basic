@@ -11,12 +11,12 @@ const store = configureStore();
 store.runSaga(saga);
 
 ReactDOM.render(
-	<Provider store={store}>
-		<BrowserRouter>
-			<Route path="/" component={App} />
-		</BrowserRouter>
-	</Provider>,
-	document.getElementById('root')
+  <Provider store={store}>
+    <BrowserRouter>
+      <Route path="/" component={App} />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
