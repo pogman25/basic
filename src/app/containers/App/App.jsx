@@ -5,6 +5,7 @@ import Notification from '../Notification';
 import PeopleList from '../../components/PeopleList';
 import Preload from '../../components/Preload';
 import { getPeople } from './duck';
+import { showError } from '../Notification/duck';
 import {
 	getPeopleFromState,
 	getNextPage,
@@ -22,6 +23,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	getPeople,
+	showError,
 };
 
 class App extends Component {
@@ -33,6 +35,10 @@ class App extends Component {
 		this.props.getPeople();
 	};
 
+	showError = () => {
+		this.props.showError('teset error');
+	};
+
 	render() {
 		const { peopleList, nextPage, isFetching } = this.props;
 		return (
@@ -40,6 +46,7 @@ class App extends Component {
 				<header className="App-header">
 					<img src={logo} className="App-logo" alt="logo" />
 					<p>Пример работы с редюсерами</p>
+					<button onClick={this.showError}>show error</button>
 				</header>
 				<PeopleList peopleList={peopleList} />
 				<div>

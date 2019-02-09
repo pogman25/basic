@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
-import { getError, getSuccess } from '../App/selectors';
-import { hideSuccess, hideError } from '../App/duck';
+import { getError, getSuccess } from './selectors';
+import { hideSuccess, hideError } from './duck';
 
 const mapStateToProps = state => ({
 	errorLog: getError(state),

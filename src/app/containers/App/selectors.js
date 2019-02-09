@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const appReducer = store => store.app;
+const appReducer = store => store.people;
 
 export const getError = createSelector(
 	appReducer,

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import app from '../../app/containers/App/duck';
+import people from '../../app/containers/App/duck';
+import notify from '../../app/containers/Notification/duck';
 
 const reducer = combineReducers({
-  app,
+	people,
+	notify,
 });
 
 export default reducer;
