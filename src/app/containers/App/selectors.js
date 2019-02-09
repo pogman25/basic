@@ -10,3 +10,13 @@ export const getSuccess = createSelector(
 	appReducer,
 	i => i.success
 );
+
+export const getPeopleFromState = createSelector(
+	appReducer,
+	i => i.people
+);
+
+export const getNextPage = createSelector(
+	appReducer,
+	i => i.nextPage
+);
