@@ -1,8 +1,8 @@
 import { all, fork } from 'redux-saga/effects';
-import appSaga from '../../app/containers/App/saga';
+import peopleSaga from '../../pages/people/containers/People/saga';
 
-export default function*() {
+export default function* () {
   yield all([
-    fork(appSaga),
+    fork(peopleSaga),
   ]);
 }

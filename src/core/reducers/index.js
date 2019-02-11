@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import people from '../../app/containers/App/duck';
-import notify from '../../app/containers/Notification/duck';
+import people from 'src/pages/people/containers/People/duck';
+import notify from 'src/app/containers/App/duck';
 
 const reducer = combineReducers({
 	people,

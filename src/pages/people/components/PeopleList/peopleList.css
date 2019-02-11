@@ -1,0 +1,14 @@
+.people-list {
+	list-style: none;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.people-list__item {
+	border: 1px solid #000;
+}
+
+.people-list__information {
+	display: flex;
+	flex-direction: column;
+}
