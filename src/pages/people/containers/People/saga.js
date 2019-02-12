@@ -2,6 +2,7 @@ import {
   all, call, put, takeLatest, select,
 } from 'redux-saga/effects';
 import callAPI from 'src/app/containers/App/saga';
+import normalizeByKey from 'src/utils/normalizer';
 import * as appDuck from 'src/app/containers/App/duck';
 import * as duck from './duck';
 import { getNextPage, getTotalCountFromState } from './selectors';
@@ -15,12 +16,14 @@ function* fetchPeople() {
       if (resp.status === 200) {
         const { data } = resp;
         const nextPage = data.next ? data.next.replace(/\D/g, '') : null;
+        const payload = normalizeByKey(data.results, 'name');
         yield all([
-          yield put(duck.getPeopleSuccess(data.results)),
+          yield put(duck.getPeopleSuccess(payload)),
           put(duck.setNextLink(+nextPage)),
         ]);
+        
         if (totalCount !== data.count) {
-          put(duck.setTotalCount(data.count));
+          yield put(duck.setTotalCount(data.count));
         }
       } else {
         yield put(appDuck.showError('Что-то пошло не так'));

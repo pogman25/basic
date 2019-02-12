@@ -11,9 +11,20 @@ export const getSuccess = createSelector(
   i => i.success,
 );
 
-export const getPeopleFromState = createSelector(
+const peopleByNames = createSelector(
   appReducer,
-  i => i.people,
+  i => i.peopleByNames,
+);
+
+const peopleNames = createSelector(
+  appReducer,
+  i => i.peopleNames,
+);
+
+export const getPeopleFromState = createSelector(
+  peopleNames,
+  peopleByNames,
+  (names, byNames) => names.map(i => byNames[i]),
 );
 
 export const getNextPage = createSelector(

@@ -21,7 +21,8 @@ export const setNextLink = createAction(SET_NEXT_PEOPLE_LINK);
 
 const initialState = {
   isFetching: false,
-  people: [],
+  peopleByNames: {},
+  peopleNames: [],
   totalCount: 0,
   nextPage: 1,
 };
@@ -32,7 +33,8 @@ const reducers = handleActions(
     [PEOPLE_RECEIVED]: state => ({ ...state, isFetching: false }),
     [PEOPLE_RECEIVE_SUCCESS]: (state, action) => ({
       ...state,
-      people: [...state.people, ...action.payload],
+      peopleByNames: { ...state.peopleByNames, ...action.payload.byIds },
+      peopleNames: [...state.peopleNames, ...action.payload.ids],
     }),
     [GET_TOTAL_COUNT]: (state, action) => ({ ...state, totalCount: action.payload }),
     [SET_NEXT_PEOPLE_LINK]: (state, action) => ({ ...state, nextPage: action.payload }),
