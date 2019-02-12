@@ -1,4 +1,4 @@
-export default function normalizeByKey(arr, by = 'id') {
+export default function normalizeByKey(arr = [], by = 'id') {
   const obj = arr.reduce((sum, item) => {
     // eslint-disable-next-line
     sum[item[by]] = item
